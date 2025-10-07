@@ -1,0 +1,10 @@
+version: 0.0
+os: linux
+
+hooks:
+  BeforeInstall:
+    - location: scripts/stop_docker.sh
+      timeout: 180
+  AfterInstall:
+    - location: scripts/start_docker.sh
+      timeout: 180
