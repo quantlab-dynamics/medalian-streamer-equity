@@ -1,0 +1,24 @@
+services:
+  app_mfeed:
+    image: 976193231076.dkr.ecr.ap-south-1.amazonaws.com/dhani-mfeed-repo
+    ports:
+      - "8000:8020"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    networks:
+      - app_network2
+
+  redis:
+    image: redis:6
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis-data:/data
+    command: redis-server --requirepass ba5fb0a30e26e83b2ac5b9e29e1b161e5c
+    networks:
+      - app_network2
+    restart: always
+
+networks:
+  app_network2:
+    driver: bridge

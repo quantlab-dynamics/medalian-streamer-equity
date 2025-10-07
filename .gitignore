@@ -1,0 +1,11 @@
+/xts-market-feed-service/target
+/xts-sdk/target
+/.idea
+/.settings
+logs/
+*.log
+# Ignore IntelliJ IDEA project files
+.idea/
+
+# Ignore build output (commonly used in Java/Maven/Gradle)
+target/

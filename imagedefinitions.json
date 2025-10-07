@@ -1,0 +1,6 @@
+[
+  {
+    "name": "dev-mfeed-backend-ecr",
+    "imageUri": "976193231076.dkr.ecr.ap-south-1.amazonaws.com/ecr-mfeed-repo:latest"
+  }
+]
