@@ -706,6 +706,7 @@ public class MDScheduler implements XTSAPIMarketdataEvents {
                 buildSyntheticPrice(touchlineBinaryResposne, "NIFTY");
 //                marketFormData.getSyntheticList("NIFTY", touchlineBinaryResposne);
                 underlyingSpotPriceMap.put("NIFTY", touchlineBinaryResposne.getLTP());
+                System.out.println("NIFTY LTP : " + touchlineBinaryResposne.getLTP());
                 logger.info("NIFTY Synthetic price : " + syntheticPriceRepository.find("NIFTY"));
             } else if (touchlineBinaryResposne.getExchangeInstrumentId() == 26001) {
 //                marketFormData.getSyntheticList("BANKNIFTY", touchlineBinaryResposne);
