@@ -11,6 +11,7 @@ import com.market.feed.model.Jwt;
 import com.market.feed.model.MarketData;
 import com.market.feed.model.SyntheticPrice;
 import com.market.feed.repository.SyntheticPriceRepository;
+import com.market.feed.repository.TickRepository;
 import com.market.feed.service.*;
 import com.market.feed.service.EmailService;
 import com.market.feed.util.Delta;
@@ -89,6 +90,9 @@ public class MDScheduler implements XTSAPIMarketdataEvents {
 
     @Autowired
     private NewImpliedVolatility impliedVolatility;
+
+    @Autowired
+    private TickRepository tickRepository;
 
     public static Map<String, String> indexNamesMap = new HashMap<>();
 
@@ -784,6 +788,7 @@ public class MDScheduler implements XTSAPIMarketdataEvents {
                     md.setDelta(0.0);
                 }
             }
+            saveTick(md);
 
             touchLineService.saveTouchLine("TL_" + String.valueOf(touchlineBinaryResposne.getExchangeInstrumentId()), touchlineBinaryResposne);
             redisService.saveMarketData("MD_" + String.valueOf(md.getExchangeInstrumentId()), md);
@@ -862,6 +867,13 @@ public class MDScheduler implements XTSAPIMarketdataEvents {
     }
 
 
+    private void saveTick(MarketData marketData) {
+        try {
+            tickRepository.saveList(String.valueOf(marketData.getExchangeInstrumentId()), List.of(marketData));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
     private MasterResponseFO buildMasterResponseFO(String[] values) {
         MasterResponseFO masterResponseFO = new MasterResponseFO();
 
